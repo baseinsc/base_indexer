@@ -1,0 +1,20 @@
+{
+    "dependencies": {
+      "@cowprotocol/ts-dune-client": "^0.0.2",
+      "axios": "^1.4.0",
+      "bignumber.js": "^9.1.1",
+      "csv-parser": "^3.0.0",
+      "dotenv": "^16.3.1",
+      "ethers": "5.7",
+      "koa": "^2.14.2",
+      "koa-bodyparser": "3",
+      "koa-router": "^12.0.0",
+      "koa2-cors": "^2.0.6",
+      "puppeteer": "^20.7.3",
+      "sqlite3": "^5.1.6"
+    },
+    "devDependencies": {
+      "@types/node": "^20.3.2"
+    }
+  }
+  
