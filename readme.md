@@ -44,11 +44,14 @@ get: /api/token_transaction?page=1&limit=20&tick=<token name>
 get: /api/base_monitor?page=1&limit=3
 
 
+### Balance
+
+get: /api/base_balances?addr=
+
+
 -----
 
-core code
-insertBase.ts
-y
+core code: insertBase.ts
 
 # TODO
 
