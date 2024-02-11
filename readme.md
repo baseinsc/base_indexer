@@ -17,6 +17,7 @@ DEX_ADDRESS=0x44439673ad39e252a6b58428f27a1861d623c644
 ## RUN
 
 ts-node  base_indexer_main.ts
+
 ts-node  base_indexer_api.ts
 
 
