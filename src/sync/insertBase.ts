@@ -6,6 +6,7 @@ import { mintHandle } from "./mint";
 import { handle_proxy_transfer } from "./proxy_transfer";
 import { mint721Handle } from "./721/mint";
 import { transfer721Handle } from "./721/transfer";
+import { handle_freeze_sell } from "./freeze_sell";
 
 interface iTo {
     recv: string;
@@ -102,7 +103,7 @@ const transferCheck = async (
             })
         }) as { blockNumber?: number }
         const blockNumber = rawInfo?.blockNumber
-	if(freezeLists.length > 0 && blockNumber && Number(blockNumber) + 600 > Number(ts.blockNumber) ){
+	    if(freezeLists.length > 0 && blockNumber && Number(blockNumber) + 600 > Number(ts.blockNumber) ){
             return false
         }
     } catch (error) {
@@ -166,7 +167,7 @@ export const InsertBase = (ts: scanRowType, json: baseJsonType) => {
         }else{
             if(json.op === 'freeze_sell'){
                 // console.log('freeze_sell')
-                // await handle_freeze_sell(ts, json)
+                await handle_freeze_sell(ts, json)
             }
             if(json.op === 'proxy_transfer'){
                 // console.log('proxy_transfer')

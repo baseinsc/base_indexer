@@ -49,7 +49,21 @@ export const initDb = () => {
             blockNumber INTEGER,
             nonce INTEGER
         )`);
-        
+        // freeze status: freeze | thaw | error
+        db.run(`CREATE TABLE IF NOT EXISTS freeze_sell (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            tick TEXT,
+            buyer TEXT,
+            payment TEXT,
+            status TEXT,
+            time TEXT,
+            message TEXT,
+            sign TEXT,
+            seller TEXT,
+            value TEXT,
+            hash TEXT,
+            amt TEXT
+        )`);
         // decimal 8
         db.run(`
             CREATE TABLE IF NOT EXISTS balances (

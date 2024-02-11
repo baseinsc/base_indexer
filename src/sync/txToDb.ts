@@ -41,7 +41,11 @@ export const handleResultToDb = async (data: {
                 continue
               }
               const str = hexToString(ts.input.substring(prefix_hex.length, ts.input.length));
-              const json = JSON.parse(str) as baseJsonType;
+              let json: baseJsonType
+              try {
+                json  = JSON.parse(str) as baseJsonType;
+              } catch (error) { 
+              }
               if (json && (json?.p.toLocaleLowerCase() === 'base-20')) {
                 await new Promise((transctionOk) => {
                   db.serialize(async () => {
