@@ -15,16 +15,13 @@ export const transferHandle = (ts: scanRowType, json: baseJsonType) => {
             const element = json.to[index];
             if(
                 parseFloat(element?.amt + '') + '' !== element?.amt + '' 
-                || parseFloat(element?.amt + '') <= 0
+                // || parseFloat(element?.amt + '') <= 0
                 || ((element?.amt + '').split('.')[1]?.length || 0) > 8
             ){
                 isTransfer = false
             }else{
                 isTransfer = true
             }
-        }
-        if(!isTransfer){
-            return
         }
         try {
             const transferFromBalance = await getBaseBalance(ts.from.toLocaleLowerCase(), json.tick)
@@ -33,7 +30,8 @@ export const transferHandle = (ts: scanRowType, json: baseJsonType) => {
             if(
                 transferFromBalance && 
                 new BigNumber(transferFromBalance).isGreaterThanOrEqualTo(new BigNumber(transerAmt).multipliedBy(1e8)) &&
-                transerAmt > 0
+                transerAmt > 0 &&
+                isTransfer
             ){
                 const totalChange = new BigNumber(transerAmt).multipliedBy(1e8).toFixed(0)
 
@@ -99,7 +97,7 @@ export const transferHandle = (ts: scanRowType, json: baseJsonType) => {
                 ])
             }
         } catch (error) {
-            
+            console.log('-------transfer------', error)
         }
         ok('')
     })
