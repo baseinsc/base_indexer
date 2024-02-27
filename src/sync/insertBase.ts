@@ -7,6 +7,7 @@ import { handle_proxy_transfer } from "./proxy_transfer";
 import { mint721Handle } from "./721/mint";
 import { transfer721Handle } from "./721/transfer";
 import { handle_freeze_sell } from "./freeze_sell";
+import { buy_token, sell_token } from "./sell_transfer";
 
 interface iTo {
     recv: string;
@@ -33,7 +34,7 @@ interface type_proxy_transfer {
 }
 export type baseJsonType = {
     p?: string;
-    op?: 'deploy' | 'mint' | 'transfer' | 'proxy_transfer' | 'freeze_sell';
+    op?: 'deploy' | 'mint' | 'transfer' | 'proxy_transfer' | 'freeze_sell' | 'sell_token' | 'buy_token';
     tick?: string;
     afrom?: string;
     amt?: string;
@@ -46,6 +47,13 @@ export type baseJsonType = {
     to?: iTo[];
     freeze?: type_freeze_sell[];
     proxy?: type_proxy_transfer[];
+    expire?: string;
+    info?: string;
+    entrust?: {
+        gas: string;
+        addr: string;
+    },
+    buy_list?: string[];
 }
 
 export type base721JsonType = {
@@ -153,6 +161,12 @@ export const InsertBase = (ts: scanRowType, json: baseJsonType) => {
             if(json.op === 'mint') {
                 // console.log('mint')
                 await mintHandle(ts, json)
+            }
+            if(json.op === 'sell_token'){
+                await sell_token(ts, json)
+            }
+            if(json.op === 'buy_token'){
+                await buy_token(ts, json)
             }
             if(json.op === 'transfer'){
                 const isCheckTransfer = await transferCheck(ts, json.tick, json.to, json.nonce, json.amt)
